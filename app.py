@@ -10,21 +10,12 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 import spacy
 import plotly.express as px
 from transformers import pipeline
-import os
-os.system("python -m spacy download en_core_web_sm")
 
-
-# ✅ This must be the first Streamlit command
+# ✅ Set Streamlit config
 st.set_page_config(page_title="Job Application Assistant - Enhanced", layout="wide")
 
-# ✅ Load spaCy model
-# nlp = spacy.load("en_core_web_sm")
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    os.system("python -m spacy download en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
-
+# ✅ Load spaCy model (model already included in requirements.txt)
+nlp = spacy.load("en_core_web_sm")
 
 # ✅ Cache model loading
 @st.cache_resource
@@ -82,7 +73,7 @@ def generate_updated_resume(resume_text):
     buffer.seek(0)
     return buffer
 
-# ✅ Summarizer (safe length)
+# ✅ Summarizer
 def analyze_text(text):
     text = text[:1500]
     summary = summarizer(
@@ -132,14 +123,14 @@ def skill_comparison_chart(matched, missing, extra):
 def show_ats_suggestions():
     st.markdown("### 🔍 ATS Suggestions")
     st.info("""
-- Use standard section titles: *Experience, **Education, **Skills*
+- Use standard section titles: *Experience, Education, Skills*
 - Stick to common fonts (Arial, Calibri, Times New Roman)
 - Include measurable achievements (e.g., "Improved efficiency by 25%")
 - Avoid using graphics, tables, or columns
 - Use bullet points instead of paragraphs for readability
 """)
 
-# ✅ Main Streamlit App
+# ✅ Main App
 def main():
     st.title("Job Application Assistant")
     st.markdown("Analyze your resume & job description, generate a cover letter, and download an updated resume – all for free!")
