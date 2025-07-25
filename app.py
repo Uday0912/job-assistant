@@ -18,7 +18,13 @@ os.system("python -m spacy download en_core_web_sm")
 st.set_page_config(page_title="Job Application Assistant - Enhanced", layout="wide")
 
 # ✅ Load spaCy model
-nlp = spacy.load("en_core_web_sm")
+# nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    os.system("python -m spacy download en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
+
 
 # ✅ Cache model loading
 @st.cache_resource
