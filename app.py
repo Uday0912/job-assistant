@@ -14,8 +14,8 @@ from transformers import pipeline
 # ✅ Load spaCy model (must be preinstalled using setup.sh)
 try:
     nlp = spacy.load("en_core_web_sm")
-except:
-    raise ImportError("The spaCy model 'en_core_web_sm' is not installed. Please ensure setup.sh installs it.")
+except ImportError:
+    raise ImportError("The spaCy model 'en_core_web_sm' is not installed. Check if setup.sh includes wheel installation and linking.")
 
 # ✅ Cache model loading
 @st.cache_resource
