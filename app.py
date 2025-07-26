@@ -113,7 +113,7 @@ def main():
         summary_jd = analyze_text(jd)
         summary_res = analyze_text(text)
         st.header("Summaries")
-        st.subheader("JD") ; st.info(summary_jd)
+        st.subheader("Job Description") ; st.info(summary_jd)
         st.subheader("Resume") ; st.info(summary_res)
 
         skills_jd = extract_skills(jd)
